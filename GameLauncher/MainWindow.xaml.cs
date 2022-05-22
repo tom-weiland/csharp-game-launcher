@@ -36,16 +36,16 @@ namespace GameLauncher
                 switch (_status)
                 {
                     case LauncherStatus.ready:
-                        PlayButton.Content = "Play";
+                        PlayButton.Content = "Launch";
                         break;
                     case LauncherStatus.failed:
                         PlayButton.Content = "Update Failed - Retry";
                         break;
                     case LauncherStatus.downloadingGame:
-                        PlayButton.Content = "Downloading Game";
+                        PlayButton.Content = "Downloading Renvirons Project files; wait until done.";
                         break;
                     case LauncherStatus.downloadingUpdate:
-                        PlayButton.Content = "Downloading Update";
+                        PlayButton.Content = "Downloading Renvirons Project update; wait until done.";
                         break;
                     default:
                         break;
@@ -60,7 +60,7 @@ namespace GameLauncher
             rootPath = Directory.GetCurrentDirectory();
             versionFile = Path.Combine(rootPath, "Version.txt");
             gameZip = Path.Combine(rootPath, "Build.zip");
-            gameExe = Path.Combine(rootPath, "Build", "Pirate Game.exe");
+            gameExe = Path.Combine(rootPath, "Build", "Renvirons Project.exe");
         }
 
         private void CheckForUpdates()
