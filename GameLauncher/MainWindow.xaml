@@ -14,7 +14,11 @@
             <ColumnDefinition Width="203*"/>
         </Grid.ColumnDefinitions>
         <Image Stretch="UniformToFill" Source="images/LauncherBackground.png" Grid.ColumnSpan="2"/>
-        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0, 0, 5, 0" Grid.Column="1"/>
-        <Button Name="PlayButton" Content="Checking for Renvirons Project updates...." Click="PlayButton_Click" Height="60" FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" Margin="188,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="150" Background="#FFFF9700" Padding="10,1,10,1" Grid.Column="1"/>
+        <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0, 0, 5, 0" Grid.Column="1" ClipToBounds="True" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}">
+            <TextBlock.Effect>
+                <DropShadowEffect/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <Button Name="PlayButton" Content="Checking for updates..." Click="PlayButton_Click" Height="43" FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" Margin="10,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="150" Background="#FF4C79B0" Padding="10,1,10,1" Grid.Column="1" Width="363"/>
     </Grid>
 </Window>

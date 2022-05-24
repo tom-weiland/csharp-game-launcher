@@ -42,10 +42,10 @@ namespace GameLauncher
                         PlayButton.Content = "Update Failed - Retry";
                         break;
                     case LauncherStatus.downloadingGame:
-                        PlayButton.Content = "Downloading Renvirons Project files; wait until done.";
+                        PlayButton.Content = "Downloading files; wait until done.";
                         break;
                     case LauncherStatus.downloadingUpdate:
-                        PlayButton.Content = "Downloading Renvirons Project update; wait until done.";
+                        PlayButton.Content = "Update found; Downloading...";
                         break;
                     default:
                         break;
@@ -59,8 +59,8 @@ namespace GameLauncher
 
             rootPath = Directory.GetCurrentDirectory();
             versionFile = Path.Combine(rootPath, "Version.txt");
-            gameZip = Path.Combine(rootPath, "Build.zip");
-            gameExe = Path.Combine(rootPath, "Build", "Renvirons Project.exe");
+            gameZip = Path.Combine(rootPath, "Renvirons Project.zip");
+            gameExe = Path.Combine(rootPath, "Renvirons Project", "Renvirons Project.exe");
         }
 
         private void CheckForUpdates()
@@ -73,7 +73,7 @@ namespace GameLauncher
                 try
                 {
                     WebClient webClient = new WebClient();
-                    Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    Version onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
 
                     if (onlineVersion.IsDifferentThan(localVersion))
                     {
@@ -108,11 +108,11 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1R3GT_VINzmNoXKtvnvuJw6C86-k3Jr5s"));
+                    _onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
                 }
 
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
-                webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1SNA_3P5wVp4tZi5NKhiGAAD6q4ilbaaf"), gameZip, _onlineVersion);
+                webClient.DownloadFileAsync(new Uri("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1"), gameZip, _onlineVersion);
             }
             catch (Exception ex)
             {
