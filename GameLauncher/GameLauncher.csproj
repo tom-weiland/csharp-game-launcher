@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>images\Icon.ico</ApplicationIcon>
+    <AssemblyName>Renvirons Project Launcher</AssemblyName>
+    <RootNamespace>GameLauncher</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
