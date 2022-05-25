@@ -151,7 +151,7 @@ namespace GameLauncher
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.WorkingDirectory = Path.Combine(rootPath, "Build");
+                startInfo.WorkingDirectory = Path.Combine(rootPath, "RENVIRONS_BUILDFILES");
                 Process.Start(startInfo);
 
                 Close();
