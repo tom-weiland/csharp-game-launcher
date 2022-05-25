@@ -60,7 +60,7 @@ namespace GameLauncher
             rootPath = Directory.GetCurrentDirectory();
             versionFile = Path.Combine(rootPath, "Version.txt");
             gameZip = Path.Combine(rootPath, "Renvirons Project.zip");
-            gameExe = Path.Combine(rootPath, "Renvirons Project", "Renvirons Project.exe");
+            gameExe = Path.Combine(rootPath, "RENVIRONS_BUILDFILES", "Renvirons Project.exe");
         }
 
         private void CheckForUpdates()
