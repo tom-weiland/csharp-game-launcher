@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <System:String x:Key="start">Giriş</System:String>
+    <System:String x:Key="pendingLink">Link Bekleniyor</System:String>
+    <System:String x:Key="updateFailed">Güncelleme Başarısız (Tekrar Dene)</System:String>
+    <System:String x:Key="downloadingGame">CereMeet İndiriliyor</System:String>
+    <System:String x:Key="downloadingUpdate">CereMeet Güncelleniyor</System:String>
+    <System:String x:Key="enterLink">Toplantı linki girin</System:String>
+
+</ResourceDictionary>

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <System:String x:Key="start">Start</System:String>
+    <System:String x:Key="pendingLink">Pending meeting link</System:String>
+    <System:String x:Key="updateFailed">Update failed (try again)</System:String>
+    <System:String x:Key="downloadingGame">Downloading CereMeet</System:String>
+    <System:String x:Key="downloadingUpdate">Updating CereMeet</System:String>
+    <System:String x:Key="enterLink">Enter meeting link</System:String>
+    
+</ResourceDictionary>

@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>images\Icon.ico</ApplicationIcon>
+    <AssemblyName>CeremeetLauncher</AssemblyName>
+    <RootNamespace>CeremeetGameLauncher</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +15,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="images\Icon.ico" />
     <Resource Include="images\LauncherBackground.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="images\LauncherBackground.wmv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Resources\Dictionary_tr-TR.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

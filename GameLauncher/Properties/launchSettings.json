@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GameLauncher": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "link": "link"
+      }
+    }
+  }
+}

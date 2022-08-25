@@ -1,3 +1,4 @@
+using System.Resources;
 using System.Windows;
 
 [assembly: ThemeInfo(
