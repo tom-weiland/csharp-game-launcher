@@ -1,11 +1,53 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:System="clr-namespace:System;assembly=mscorlib">
-    <System:String x:Key="start">Giriş</System:String>
+    <System:String x:Key="start">Başlat</System:String>
     <System:String x:Key="pendingLink">Link Bekleniyor</System:String>
+    <System:String x:Key="pendingLogin">Giriş yapın</System:String>
     <System:String x:Key="updateFailed">Güncelleme Başarısız (Tekrar Dene)</System:String>
     <System:String x:Key="downloadingGame">CereMeet İndiriliyor</System:String>
     <System:String x:Key="downloadingUpdate">CereMeet Güncelleniyor</System:String>
     <System:String x:Key="enterLink">Toplantı linki girin</System:String>
+    <System:String x:Key="userInfo">Kullanıcı Profili</System:String>
+    <System:String x:Key="userWrongLogin">E-posta şifre kombinasyonu hatalı veya e-posta doğrulaması yapımamış.</System:String>
+    <System:String x:Key="userInfoTitle">Kullanıcı Bilgileri</System:String>
+    <System:String x:Key="userInfoName">İsim</System:String>
+    <System:String x:Key="userInfoEmail">E-posta:</System:String>
+    <System:String x:Key="userInfoMembership">Üyelik:</System:String>
+    <System:String x:Key="userEmail">E-posta</System:String>
+    <System:String x:Key="userPassword">Şifre</System:String>
+    <System:String x:Key="userPasswordConfirm">Şifre (Tekrar)</System:String>
+    <System:String x:Key="userLogin">Giriş</System:String>
+    <System:String x:Key="userLogout">Çıkış</System:String>
+    <System:String x:Key="meetingInfo">Toplantı Bilgileri</System:String>
+    <System:String x:Key="meetingInfoTitle">Toplantı Başlığı: </System:String>
+    <System:String x:Key="meetingLink">Toplantı Linki:</System:String>
+    <System:String x:Key="meetingInfoJoining">Katılınacak Toplantı:</System:String>
+    <System:String x:Key="meetingInfoGet">Toplantı Bilgilerini Al</System:String>
+    <System:String x:Key="meetingCreateNew">Yeni Toplantı</System:String>
+    <System:String x:Key="meetingJoin">Toplantıya Katıl</System:String>
+    <System:String x:Key="meetingCreateNewTitle">Toplantı Başlığı Girin</System:String>
+    <System:String x:Key="meetingCreateNewTitleLabel">Yeni Toplantı Başlığı:</System:String>
+    <System:String x:Key="register">Kayıt ol</System:String>
+    <System:String x:Key="meetingLinkWrong">Bu linke ait bir toplantı bulunamadı.</System:String>
+    <System:String x:Key="Greeting">Merhaba</System:String>
+    <System:String x:Key="GreetingMembership">CereMeet'in</System:String>
+    <System:String x:Key="GreetingMembership2">versiyonuna sahipsiniz.</System:String>
+    <System:String x:Key="GreetingMembershipFree">8 dakikaya kadar toplantı yapmanıza izinverecek odalar oluşturabilirsiniz.</System:String>
+    <System:String x:Key="GreetingMembershipPremium">Sınırsız süreli toplantılar oluşturabilirsiniz..</System:String>
+    <System:String x:Key="GreetingInstructions">Bir toplantiya katılmak için sağ panele size sağlanan linki yapıştırın. Yeni bir toplantı yaratmak için ortadaki paneli kullanın.</System:String>
+    <System:String x:Key="UserVerifyEmail">Hesabınız başarıyla oluşturuldu ve bir doğrulama e-postası tarafınıza iletildi. Uygulamaya giriş yapmadan önce litfen e-posta adresinizi doğrulayın.</System:String>
+    <System:String x:Key="PasswordMatchError">Parolalar eşleşmiyor!</System:String>
+    <System:String x:Key="PasswordWeak">Parola en az 8, en fazla 32 karakter olmalı!</System:String>
+    <System:String x:Key="EmailisnotValid">Geçerli bir e-posta adresi girin!</System:String>
+    <System:String x:Key="FillAll">Tüm alanları doldurun!</System:String>
+    <System:String x:Key="OutlookShare">Toplantıyı Paylaş</System:String>
+    <System:String x:Key="AccountExists">Bu hesap zaten kaydedilmiş.!</System:String>
+    <System:String x:Key="meetingCreateNewChange">Toplantı başlığı ekleyin!</System:String>
+    <System:String x:Key="OutlookBody">CereMeet Daveti:</System:String>
+    <System:String x:Key="OutlookBody2">Ceremeet Toplantısına Katılın:</System:String>
+
+
+
 
 </ResourceDictionary>

@@ -3,9 +3,50 @@
   xmlns:System="clr-namespace:System;assembly=mscorlib">
     <System:String x:Key="start">Start</System:String>
     <System:String x:Key="pendingLink">Pending meeting link</System:String>
+    <System:String x:Key="pendingLogin">Waiting Login</System:String>
     <System:String x:Key="updateFailed">Update failed (try again)</System:String>
     <System:String x:Key="downloadingGame">Downloading CereMeet</System:String>
     <System:String x:Key="downloadingUpdate">Updating CereMeet</System:String>
     <System:String x:Key="enterLink">Enter meeting link</System:String>
-    
+    <System:String x:Key="userInfo">User Profile</System:String>
+    <System:String x:Key="userInfoTitle">User Information:</System:String>
+    <System:String x:Key="userEmail">E-mail</System:String>
+    <System:String x:Key="userPassword">Password</System:String>
+    <System:String x:Key="userPasswordConfirm">Password (Confirm)</System:String>
+    <System:String x:Key="userLogin">Login</System:String>
+    <System:String x:Key="userWrongLogin">Wrong e-mail or password or e-mail is not verified.</System:String>
+    <System:String x:Key="userLogout">Logout</System:String>
+    <System:String x:Key="userInfoName">Name</System:String>
+    <System:String x:Key="userInfoEmail">E-mail: </System:String>
+    <System:String x:Key="userInfoMembership">Membership: </System:String>
+    <System:String x:Key="meetingInfo">Meeting Info</System:String>
+    <System:String x:Key="meetingInfoTitle">Meeting Title: </System:String>
+    <System:String x:Key="meetingInfoGet">Get Meeting Info</System:String>
+    <System:String x:Key="meetingCreateNew">Create A New Meeting</System:String>
+    <System:String x:Key="meetingJoin">Join A Meeting</System:String>
+    <System:String x:Key="meetingInfoJoining">Will Join:</System:String>
+    <System:String x:Key="meetingCreateNewTitle">Enter Meeting Title</System:String>
+    <System:String x:Key="register">Register</System:String>
+    <System:String x:Key="meetingLink">Meeting Link:</System:String>
+    <System:String x:Key="meetingCreateNewTitleLabel">New Meeting Title:</System:String>
+    <System:String x:Key="meetingLinkWrong">No meeting found with this link.</System:String>
+    <System:String x:Key="Greeting">Hello</System:String>
+    <System:String x:Key="GreetingMembership">You have the</System:String>
+    <System:String x:Key="GreetingMembership2">version of the CereMeet.</System:String>
+    <System:String x:Key="GreetingMembershipFree">You can create and host meetings up to 8 minutes.</System:String>
+    <System:String x:Key="GreetingMembershipPremium">You can create and host meetings without time limit.</System:String>
+    <System:String x:Key="GreetingInstructions">You may attend any meeting by paseting the provided meeting link to the panel on the right. If you want to create a meeting you can do so on the center panel.</System:String>
+    <System:String x:Key="UserVerifyEmail">Your accound is sucessfully created and a verification e-mail has been send. Please verify your e-mail before your first login.</System:String>
+    <System:String x:Key="PasswordMatchError">Passwords deosnt match!</System:String>
+    <System:String x:Key="PasswordWeak">Password must be at least 8 characters and less than 32 caracters!</System:String>
+    <System:String x:Key="EmailisnotValid">Enter a valid e-mail!</System:String>
+    <System:String x:Key="FillAll">Fill all fields!</System:String>
+    <System:String x:Key="AccountExists">Already registered!</System:String>
+    <System:String x:Key="OutlookShare">Share Meeting</System:String>
+    <System:String x:Key="meetingCreateNewChange">Please name your meeting title</System:String>
+    <System:String x:Key="OutlookBody">CereMeet Meeting Request:</System:String>
+    <System:String x:Key="OutlookBody2">Join the CereMeet Meeting:</System:String>
+
+
+
 </ResourceDictionary>

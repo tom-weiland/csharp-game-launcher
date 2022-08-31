@@ -7,26 +7,46 @@
     <ApplicationIcon>images\Icon.ico</ApplicationIcon>
     <AssemblyName>CeremeetLauncher</AssemblyName>
     <RootNamespace>CeremeetGameLauncher</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="images\Icon.ico" />
     <None Remove="images\LauncherBackground.png" />
+    <None Remove="images\LauncherBackground.wmv" />
   </ItemGroup>
 
   <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>6</VersionMinor>
+      <VersionMajor>9</VersionMajor>
+      <Guid>00062fff-0000-0000-c000-000000000046</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\LauncherBackground.wmv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="images\Icon.ico" />
-    <Resource Include="images\LauncherBackground.png" />
+    <Content Include="images\LauncherBackground.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="images\LauncherBackground.wmv">
+    <Resource Include="images\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

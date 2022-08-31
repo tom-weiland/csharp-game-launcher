@@ -8,6 +8,7 @@
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         Title="Ceremeet Launcher" Height="576" Width="1080" ResizeMode="NoResize">
+
     <Grid x:Uid="Grid_1">
         <MediaElement Height="576" Width="1080" x:Name="BackgroundElement" >
             <MediaElement.Triggers>
@@ -23,14 +24,261 @@
             </MediaElement.Triggers>
         </MediaElement>
 
-        <WebBrowser x:Uid="webBrowser" x:Name="webBrowser" VerticalAlignment="Center" HorizontalAlignment="Left" Height="500" Width="275" Margin="25,0,0,0" />
+        <WebBrowser x:Uid="webBrowser"
+                    x:Name="webBrowser"
+                    Visibility="Hidden"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Height="500" Width="275"
+                    Margin="25,0,0,0" />
 
-        <TextBlock x:Uid="VersionText" x:Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="20, 20, 5, 15"/>
-        <Button x:Uid="PlayButton" BorderThickness="0"  x:Name="PlayButton" Content="{DynamicResource start}" Click="PlayButton_Click" Height="60" FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" Margin="0,0,10,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="150" Background="DarkOrange" Padding="10,1,10,1"/>
-        <TextBox x:Uid="MeetingLink" Background="DarkOrange" Foreground="#DDFFFFFF" BorderThickness="0" x:Name="MeetingLink" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Margin="0,10,0,50" Text="{DynamicResource enterLink}" TextWrapping="NoWrap" Width="208" TextChanged="MeetingLink_TextChanged"/>
+        <TextBlock x:Uid="VersionText" x:Name="VersionText"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                   FontSize="20" Foreground="White"
+                   Margin="20, 20, 5, 15"/>
+        <Button x:Uid="PlayButton"
+                BorderThickness="0" 
+                x:Name="PlayButton"
+                Content="{DynamicResource start}"
+                Click="PlayButton_Click" Height="50" FontSize="20" FontWeight="Bold" 
+                Margin="0,0,60,25"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="150"
+                Background="#01d5bc"
+                         Foreground="#161376" Padding="10,1,10,1"/>
+        <Button x:Uid="ShareButton"
+                BorderThickness="0" 
+                x:Name="ShareButton"
+                Content="{DynamicResource OutlookShare}"
+                Click="ShareButton_Click" Height="50" FontSize="20" FontWeight="Bold" 
+                Margin="0,0,60,25"
+                Visibility="Hidden"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
+                Background="#01d5bc"
+                         Foreground="#161376" Padding="10,1,10,1"/>
         <ProgressBar x:Uid="DownloadProgress" Background="Azure" BorderThickness="0"  Foreground="Aqua" x:Name="DownloadProgress" HorizontalAlignment="Center" Height="10" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="1080" ValueChanged="DownloadProgress_ValueChanged"/>
-        <Button x:Name="EngButton" Background="DarkOrange" BorderThickness="0" Foreground="#DDFFFFFF"  Content="ENG" HorizontalAlignment="Left" Visibility="Hidden" Margin="1006,30,0,0" VerticalAlignment="Top" Click="eng_Click"/>
-        <Button x:Name="TrButton" Background="DarkOrange" BorderThickness="0"  Foreground="#DDFFFFFF" Content="TR" HorizontalAlignment="Left" Visibility="Hidden" Margin="1006,30,0,0" VerticalAlignment="Top" Click="tr_Click"/>
+        <Button x:Name="EngButton" IsEnabled="True" Background="#01d5bc"
+                         Foreground="#161376" BorderThickness="0"   Content="ENG" HorizontalAlignment="Center" Visibility="Hidden" Margin="1006,30,0,0" VerticalAlignment="Top" Click="eng_Click"/>
+        <Button x:Name="TrButton" IsEnabled="True" Background="#01d5bc"
+                         Foreground="#161376" BorderThickness="0"   Content="TR" HorizontalAlignment="Center" Visibility="Hidden" Margin="1006,30,0,0" VerticalAlignment="Top" Click="tr_Click"/>
+
+        <GroupBox x:Name="LoginGroup" Width="300" Height="249" VerticalAlignment="Center" Background="#D6ECFF" BorderThickness="0"  HorizontalAlignment="Left" Margin="385,0,0,0" Foreground="#1B3B56" d:IsHidden="True" >
+            <Grid Height="207">
+                <TextBox x:Name="email"
+                         
+                         Foreground="#161376"
+                         BorderThickness="0" 
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         FontSize="20"
+                         TextWrapping="NoWrap" Width="240" 
+                         MouseDoubleClick="SelectMeeetingText"
+                         GotKeyboardFocus="SelectMeeetingText"
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="31" Margin="0,28,0,0"/>
+
+                <PasswordBox x:Name="password"
+                         
+                         Foreground="#161376"
+                         BorderThickness="0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         FontSize="20"                         
+                         Width="240" 
+                         MouseDoubleClick="SelectMeeetingText"
+                         GotKeyboardFocus="SelectMeeetingText"
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="28"/>
+
+                <Button x:Uid="RegisterButton"
+                BorderThickness="0" 
+                x:Name="RegisterButton"
+                Content="{DynamicResource register}"           Click="RegisterButton_Click" Height="20" FontSize="15" FontWeight="Bold" MinWidth="40" Foreground="#161376"
+                VerticalAlignment="Top" HorizontalAlignment="Center" 
+                Padding="0,0,0,0" Margin="0,138,0,0"/>
+
+                <Button x:Uid="LoginButton"
+                BorderThickness="0" 
+                x:Name="LoginButton"
+                         IsDefault="True"
+                Content="{DynamicResource userLogin}"
+                Click="LoginButton_Click" Height="30" FontSize="15" FontWeight="Bold" Foreground="#161376"
+                Margin="0,0,0,10"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
+                Background="#01d5bc" Padding="0,0,0,0"/>
+                <Label Content="{DynamicResource userEmail}" HorizontalAlignment="Left" Height="34" Margin="28,0,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+                <Label Content="{DynamicResource userPassword}" HorizontalAlignment="Left" Height="34" Margin="24,59,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="RegisterGroup" Width="300" Height="350" VerticalAlignment="Center" Background="#D6ECFF" BorderThickness="0" Visibility="Hidden" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="#1B3B56" >
+            <Grid Height="318">
+                <TextBox x:Name="newemail"
+                         
+                         Foreground="#161376"
+                         BorderThickness="0" 
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         FontSize="20"
+                         TextWrapping="NoWrap" Width="240" 
+                         MouseDoubleClick="SelectMeeetingText"
+                         GotKeyboardFocus="SelectMeeetingText"
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="31" Margin="0,80,0,0"/>
+
+                <PasswordBox x:Name="newpassword"
+                         
+                         Foreground="#161376"
+                         BorderThickness="0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         FontSize="20"                         
+                         Width="240"
+                         MouseDoubleClick="SelectMeeetingText"
+                         GotKeyboardFocus="SelectMeeetingText"
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="28" Margin="0,143,0,0"/>
+
+                <PasswordBox x:Name="newpasswordconfirm"
+                         
+                         Foreground="#161376"
+                         BorderThickness="0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         FontSize="20"                         
+                         Width="240" 
+                             Margin="0,204,0,0"
+                         MouseDoubleClick="SelectMeeetingText"
+                         GotKeyboardFocus="SelectMeeetingText"
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="28"/>
+
+                <Button x:Uid="ReturnLoginButton"
+                BorderThickness="0" 
+                x:Name="ReturnLoginButton"
+                Content="{DynamicResource userLogin}"           Click="ReturnLoginButton_Click" Height="20" FontSize="15" FontWeight="Bold" MinWidth="40" Foreground="#161376"
+                VerticalAlignment="Top" HorizontalAlignment="Center" 
+                Padding="0,0,0,0" Margin="0,297,0,0"/>
+
+                <Button x:Uid="SendRegisterButton"
+                BorderThickness="0" 
+                x:Name="SendRegisterButton"
+                Content="{DynamicResource register}"
+                Click="SendRegisterButton_Click" Height="30" FontSize="15" FontWeight="Bold" Foreground="#161376"
+                Margin="0,254,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="150"
+                Background="#01d5bc" Padding="0,0,0,0"/>
+                <Label Content="{DynamicResource userInfoName}" HorizontalAlignment="Left" Height="34" Margin="24,0,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+                <Label Content="{DynamicResource userEmail}" HorizontalAlignment="Left" Height="34" Margin="24,54,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+                <Label Content="{DynamicResource userPassword}" HorizontalAlignment="Left" Height="34" Margin="24,114,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+                <Label Content="{DynamicResource userPasswordConfirm}" HorizontalAlignment="Left" Height="34" Margin="24,177,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+                <TextBox x:Name="Name"
+                         
+                    Foreground="#161376"
+                    BorderThickness="0" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="20"
+                    TextWrapping="NoWrap" Width="240" 
+                    MouseDoubleClick="SelectMeeetingText"
+                    GotKeyboardFocus="SelectMeeetingText"
+                    PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="31" Margin="0,24,0,0"/>
+
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="UserGroup" Width="300" Visibility="Hidden" Background="#D6ECFF" BorderThickness="0" Height="350" VerticalAlignment="Center" HorizontalAlignment="left" Margin="25,0,10,40" Foreground="#161376" >
+            <Grid>
+
+
+                <TextBlock x:Name="UserInfo"
+                         
+                           
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         FontSize="15"
+                         Margin="0,25,0,0"
+                         Text="{DynamicResource userEmail}"
+                         TextWrapping="Wrap" Width="260" 
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
+
+                <Button x:Uid="LogoutButton"
+                BorderThickness="0" 
+                x:Name="LogoutButton"
+                Content="{DynamicResource userLogout}"
+                Click="LogoutButton_Click" Height="30" FontSize="20" FontWeight="Bold" Foreground="#161376"
+                      Background="#01d5bc"  
+                Margin="0,0,0,10"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
+                
+                        
+                        
+                        Padding="0,0,0,0"/>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="NewMeetingGroup" Width="250" Height="195"  VerticalAlignment="Center" Background="#D6ECFF" BorderThickness="0" Visibility="Hidden" HorizontalAlignment="Center" Margin="45,0,0,0" Foreground="#161376">
+            <Grid Height="161">
+
+                <Label Content="{DynamicResource meetingCreateNew}" HorizontalAlignment="Left" Height="45" FontSize="20" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="#161376" Width="250"/>
+
+                <Label Content="{DynamicResource meetingCreateNewTitleLabel}" HorizontalAlignment="Left" Height="34" Margin="0,50,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+
+                <TextBox x:Uid="NewMeetingTitle" 
+                                 Foreground="#161376" BorderThickness="0"  x:Name="NewMeetingTitle" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Text="{DynamicResource meetingCreateNewTitle}" TextWrapping="NoWrap" Width="208" TextChanged="NewMeetingTitle_TextChanged" MouseDoubleClick="SelectMeeetingText" GotKeyboardFocus="SelectMeeetingText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Margin="0,80,0,0"/>
+
+                <Button x:Uid="NewMeetingButton"
+                        IsEnabled="True"
+                BorderThickness="0" 
+                x:Name="NewMeetingButton" Background="#01d5bc"
+                Content="{DynamicResource meetingCreateNew}"
+                Click="NewMeetingButton_Click" Height="30" FontSize="15" FontWeight="Bold" Foreground="#161376"
+                Margin="0,130,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="150"
+                
+                                
+                                
+                                Padding="0,0,0,0"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="MeetingGroup" Width="250" Height="195" VerticalAlignment="Center" Background="#D6ECFF" BorderThickness="0" HorizontalAlignment="Right" Visibility="Hidden" Margin="0,0,25,0">
+            <Grid Height="161">
+                <Label Content="{DynamicResource meetingJoin}" HorizontalAlignment="Left" Height="45" FontSize="20" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="#161376" Width="250"/>
+
+                <Label Content="{DynamicResource meetingLink}" HorizontalAlignment="Left" Height="34" Margin="5,50,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
+
+                <TextBox x:Uid="MeetingLink" 
+                                 
+                                 
+                                 Foreground="#161376"
+                                 BorderThickness="0"  x:Name="MeetingLink" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="0,80,0,0" Text="{DynamicResource enterLink}" TextWrapping="NoWrap" Width="208" TextChanged="MeetingLink_TextChanged" MouseDoubleClick="SelectMeeetingText" GotKeyboardFocus="SelectMeeetingText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
+                <Button x:Uid="GetMeetingButton"
+                        IsEnabled="False"
+                                
+                BorderThickness="0"  
+                x:Name="GetMeetingButton"
+                                 Background="#01d5bc" Foreground="#161376"
+                Content="{DynamicResource meetingInfoGet}"
+                Click="GetMeetingButton_Click" Height="30" FontSize="15" FontWeight="Bold" 
+                                
+                Margin="0,100,10,0"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
+                />
+
+
+            </Grid>
+        </GroupBox>
+
+
+        <TextBlock x:Name="MeetingInfo"
+                         
+                   
+                         Foreground="#161376"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Bottom"
+                         FontSize="20"
+                       Visibility="Hidden"
+                         Margin="0,0,252,37"
+                         Text="{DynamicResource meetingInfoJoining}"
+                         TextWrapping="NoWrap" Width="220" 
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
     </Grid>
 </Window>
