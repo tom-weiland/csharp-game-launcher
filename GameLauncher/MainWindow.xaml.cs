@@ -430,8 +430,8 @@ namespace GameLauncher
             httpRequest.ContentType = "application/json";
             httpRequest.Accept = "application/json";
             httpRequest.Method = "POST";
-            //var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
-            var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
+            var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
+            //var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
             using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
                
