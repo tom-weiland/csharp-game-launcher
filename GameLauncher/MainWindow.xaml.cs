@@ -54,6 +54,7 @@ namespace GameLauncher
         private string UserMembership = " ";
         private string UserEmail = " ";
         private string meetingid = " ";
+        private string meetinglink = " ";
         private bool meetingid_invalid;
 
 
@@ -66,7 +67,7 @@ namespace GameLauncher
         private string MeRoot = "/api/users/me";
         private string MeetingRoot = "/api/meetings";
         private string MeetingLinkPreferals = "ceremeet://ceremeet:com";
-        private string OutlookLinkPreferals = "https://files.ceremeet.com";
+        private string OutlookLinkPreferals = "https://files.ceremeet.com/";
         private string linkchecker;
 
         internal LauncherStatus Status
@@ -109,18 +110,17 @@ namespace GameLauncher
                         {
                             DownloadProgress.Visibility = Visibility.Collapsed;
                         }
-                        if (MeetingLink.Text.Length >= 60)
+                        if (meetinglink.Length >= 60)
                         {
-                            linkchecker = MeetingLink.Text.Substring(0, 23);
-                            GetMeetingButton.IsEnabled = true;
+                            linkchecker = meetinglink.Substring(0, 23);
 
                             if (linkchecker == MeetingLinkPreferals)
                             {
-                                if (MeetingLink.Text.Length >= 60)
+                                if (meetinglink.Length >= 60)
                                 {
-                                    var meetingids = MeetingLink.Text.Remove(0, 23);
+                                    var meetingids = meetinglink.Remove(0, 23);
                                     meetingid = meetingids.Substring(0, 37);
-                                    launchParameter = MeetingLink.Text;
+                                    launchParameter = meetinglink;
                                     MeetingRequest(meetingid);
                                     Status = LauncherStatus.ready;
                                 }
@@ -160,7 +160,7 @@ namespace GameLauncher
 
             if (args.Length > 1)
             {
-                MeetingLink.Text = args[1];
+                meetinglink = args[1];
                 launchParameter = args[1] + " ";
             }
             else
@@ -339,7 +339,6 @@ namespace GameLauncher
                 ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
                 startInfo.Arguments = launchParameter + " " + LocalizationInfo + " " + access_token;
                 startInfo.WorkingDirectory = Path.Combine(gamePath, "Ceremeet");
-                MeetingRequest(meetingid);
                 if (meetingid_invalid == false)
                 {
                     Process.Start(startInfo);
@@ -360,7 +359,13 @@ namespace GameLauncher
             if (MeetingLink.Text.Length >= 60)
             {
                 linkchecker = MeetingLink.Text.Substring(0, 23);
-                GetMeetingButton.IsEnabled = true;
+                var linkcheckerfile = MeetingLink.Text.Substring(0, OutlookLinkPreferals.Length);
+
+                if (linkcheckerfile == OutlookLinkPreferals)
+                {
+                    var tempMeetingLink = MeetingLink.Text.Remove(0, OutlookLinkPreferals.Length);
+                    MeetingLink.Text = MeetingLinkPreferals + "/" + tempMeetingLink;
+                }
 
                 if (linkchecker == MeetingLinkPreferals)
                 {
@@ -368,6 +373,9 @@ namespace GameLauncher
                     {
                         var meetingids = MeetingLink.Text.Remove(0, 23);
                         meetingid = meetingids.Substring(0, 37);
+                        MeetingRequest(meetingid);
+                        ShareButton.Visibility = Visibility.Visible;
+
                         launchParameter = MeetingLink.Text;
                         Status = LauncherStatus.ready;
                     }
@@ -430,8 +438,8 @@ namespace GameLauncher
             httpRequest.ContentType = "application/json";
             httpRequest.Accept = "application/json";
             httpRequest.Method = "POST";
-            var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
-            //var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
+            //var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
+            var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
             using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
                
@@ -818,8 +826,8 @@ namespace GameLauncher
             httpRequest.ContentType = "application/json";
             httpRequest.Accept = "application/json";
             httpRequest.Method = "POST";
-            //var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"," + "\"name\":\"" + name + "\"," + "\"passwordConfirm\":\"" + passwordconfirm + "\"}";
-            var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
+            var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"," + "\"name\":\"" + name + "\"," + "\"passwordConfirm\":\"" + passwordconfirm + "\"}";
+            //var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
             using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
 
@@ -856,7 +864,12 @@ namespace GameLauncher
         }
         private void SendRegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (newpasswordconfirm.Password != newpassword.Password)
+                        if (Name.Text.Length < 3  | newemail.Text.Length < 3)
+            {
+                MessageBox.Show((string)Application.Current.FindResource("FillAll"));
+
+            }
+            else if (newpasswordconfirm.Password != newpassword.Password)
             {
                 MessageBox.Show((string)Application.Current.FindResource("PasswordMatchError"));
             }
@@ -869,11 +882,7 @@ namespace GameLauncher
                 MessageBox.Show((string)Application.Current.FindResource("EmailisnotValid"));
             }
 
-            else if (Name.Text.Length < 1 | newpassword.Password.Length < 1)
-            {
-                MessageBox.Show((string)Application.Current.FindResource("EmailisnotValid"));
 
-            }
             else
             {
                 RegisterRequest(newemail.Text, newpassword.Password, newpasswordconfirm.Password, Name.Text);

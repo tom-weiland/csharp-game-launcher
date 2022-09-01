@@ -27,7 +27,7 @@
     <System:String x:Key="meetingInfoJoining">Will Join:</System:String>
     <System:String x:Key="meetingCreateNewTitle">Enter Meeting Title</System:String>
     <System:String x:Key="register">Register</System:String>
-    <System:String x:Key="meetingLink">Meeting Link:</System:String>
+    <System:String x:Key="meetingLink">Enter Meeting Link:</System:String>
     <System:String x:Key="meetingCreateNewTitleLabel">New Meeting Title:</System:String>
     <System:String x:Key="meetingLinkWrong">No meeting found with this link.</System:String>
     <System:String x:Key="Greeting">Hello</System:String>

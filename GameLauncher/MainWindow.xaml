@@ -1,4 +1,5 @@
-﻿<Window x:Uid="Window_1" x:Class="GameLauncher.MainWindow"
+﻿
+<Window x:Uid="Window_1" x:Class="GameLauncher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,6 +10,7 @@
         ContentRendered="Window_ContentRendered"
         Title="Ceremeet Launcher" Height="576" Width="1080" ResizeMode="NoResize">
 
+    
     <Grid x:Uid="Grid_1">
         <MediaElement Height="576" Width="1080" x:Name="BackgroundElement" >
             <MediaElement.Triggers>
@@ -49,10 +51,10 @@
                 BorderThickness="0" 
                 x:Name="ShareButton"
                 Content="{DynamicResource OutlookShare}"
-                Click="ShareButton_Click" Height="50" FontSize="20" FontWeight="Bold" 
-                Margin="0,0,60,25"
+                Click="ShareButton_Click" Height="40" FontSize="15" FontWeight="Bold" 
+                Margin="0,0,30,120"
                 Visibility="Hidden"
-                VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="150"
                 Background="#01d5bc"
                          Foreground="#161376" Padding="10,1,10,1"/>
         <ProgressBar x:Uid="DownloadProgress" Background="Azure" BorderThickness="0"  Foreground="Aqua" x:Name="DownloadProgress" HorizontalAlignment="Center" Height="10" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="1080" ValueChanged="DownloadProgress_ValueChanged"/>
@@ -89,10 +91,12 @@
 
                 <Button x:Uid="RegisterButton"
                 BorderThickness="0" 
+                        
                 x:Name="RegisterButton"
                 Content="{DynamicResource register}"           Click="RegisterButton_Click" Height="20" FontSize="15" FontWeight="Bold" MinWidth="40" Foreground="#161376"
                 VerticalAlignment="Top" HorizontalAlignment="Center" 
                 Padding="0,0,0,0" Margin="0,138,0,0"/>
+                
 
                 <Button x:Uid="LoginButton"
                 BorderThickness="0" 
@@ -249,36 +253,25 @@
                                  
                                  Foreground="#161376"
                                  BorderThickness="0"  x:Name="MeetingLink" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Margin="0,80,0,0" Text="{DynamicResource enterLink}" TextWrapping="NoWrap" Width="208" TextChanged="MeetingLink_TextChanged" MouseDoubleClick="SelectMeeetingText" GotKeyboardFocus="SelectMeeetingText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
-                <Button x:Uid="GetMeetingButton"
-                        IsEnabled="False"
-                                
-                BorderThickness="0"  
-                x:Name="GetMeetingButton"
-                                 Background="#01d5bc" Foreground="#161376"
-                Content="{DynamicResource meetingInfoGet}"
-                Click="GetMeetingButton_Click" Height="30" FontSize="15" FontWeight="Bold" 
-                                
-                Margin="0,100,10,0"
-                VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
-                />
 
+                <TextBlock x:Name="MeetingInfo"
+                         
+                   
+                         Foreground="#161376"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Bottom"
+                         FontSize="15"
+                       Visibility="Hidden"
+                         Margin="10,0,0,0"
+                         Text="{DynamicResource meetingInfoJoining}"
+                         TextWrapping="NoWrap" Width="220" 
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
             </Grid>
         </GroupBox>
 
 
-        <TextBlock x:Name="MeetingInfo"
-                         
-                   
-                         Foreground="#161376"
-                         HorizontalAlignment="Right"
-                         VerticalAlignment="Bottom"
-                         FontSize="20"
-                       Visibility="Hidden"
-                         Margin="0,0,252,37"
-                         Text="{DynamicResource meetingInfoJoining}"
-                         TextWrapping="NoWrap" Width="220" 
-                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
+
 
     </Grid>
 </Window>

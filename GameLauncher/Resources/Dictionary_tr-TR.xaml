@@ -21,7 +21,7 @@
     <System:String x:Key="userLogout">Çıkış</System:String>
     <System:String x:Key="meetingInfo">Toplantı Bilgileri</System:String>
     <System:String x:Key="meetingInfoTitle">Toplantı Başlığı: </System:String>
-    <System:String x:Key="meetingLink">Toplantı Linki:</System:String>
+    <System:String x:Key="meetingLink">Toplantı Linki Girin:</System:String>
     <System:String x:Key="meetingInfoJoining">Katılınacak Toplantı:</System:String>
     <System:String x:Key="meetingInfoGet">Toplantı Bilgilerini Al</System:String>
     <System:String x:Key="meetingCreateNew">Yeni Toplantı</System:String>
