@@ -46,6 +46,8 @@
     <System:String x:Key="meetingCreateNewChange">Please name your meeting title</System:String>
     <System:String x:Key="OutlookBody">CereMeet Meeting Request:</System:String>
     <System:String x:Key="OutlookBody2">Join the CereMeet Meeting:</System:String>
+    <System:String x:Key="CannotConnectGameServer">Unable to connect to the game server.</System:String>
+
 
 
 

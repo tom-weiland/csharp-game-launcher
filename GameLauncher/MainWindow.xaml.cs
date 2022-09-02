@@ -16,6 +16,11 @@ using System.Reflection;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Generic;
 using System.Text;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Bibliography;
+using System.Drawing;
+using System.Windows.Media;
 
 namespace GameLauncher
 {
@@ -55,7 +60,9 @@ namespace GameLauncher
         private string UserEmail = " ";
         private string meetingid = " ";
         private string meetinglink = " ";
+        private string gameserverIp = "20.113.166.57";
         private bool meetingid_invalid;
+
 
 
         /// <summary>
@@ -85,12 +92,15 @@ namespace GameLauncher
                             DownloadProgress.Visibility = Visibility.Collapsed;
                         }
                         MeetingGroup.Visibility = Visibility.Visible;
+                        LoginButton.IsEnabled = true;
+
                         NewMeetingGroup.Visibility = Visibility.Visible;
                         break;
                     case LauncherStatus.pendingLogin:
                         PlayButton.Content = (string)Application.Current.FindResource("pendingLogin");
                         LoginGroup.Visibility = Visibility.Visible;
                         UserGroup.Visibility = Visibility.Collapsed;
+                        LoginButton.IsEnabled = true;
                         if (DownloadProgress != null)
                         {
                             DownloadProgress.Visibility = Visibility.Collapsed;
@@ -104,6 +114,7 @@ namespace GameLauncher
                         MeetingGroup.Visibility = Visibility.Visible;
                         NewMeetingGroup.Visibility = Visibility.Visible;
                         UserGroup.Visibility = Visibility.Visible;
+                        LoginButton.IsEnabled = true;
                         PlayButton.Content = (string)Application.Current.FindResource("pendingLink");
 
                         if (DownloadProgress != null)
@@ -133,11 +144,13 @@ namespace GameLauncher
                     case LauncherStatus.downloadingGame:
                         PlayButton.Content = (string)Application.Current.FindResource("downloadingGame");
                         TrButton.IsEnabled = false;
+                        LoginButton.IsEnabled = false;
                         EngButton.IsEnabled = false;
                         break;
                     case LauncherStatus.downloadingUpdate:
                         PlayButton.Content = (string)Application.Current.FindResource("downloadingUpdate");
                         TrButton.IsEnabled = false;
+                        LoginButton.IsEnabled = false;
                         EngButton.IsEnabled = false;
                         break;
                     default:
@@ -414,7 +427,8 @@ namespace GameLauncher
             LocalizationInfo = "tr-TR";
             TrButton.Visibility = Visibility.Hidden;
             EngButton.Visibility = Visibility.Visible;
-            CheckForUpdates();
+            MeRequest();
+
         }
 
         private void eng_Click(object sender, RoutedEventArgs e)
@@ -423,7 +437,7 @@ namespace GameLauncher
             LocalizationInfo = "eng-US";
             EngButton.Visibility = Visibility.Hidden;
             TrButton.Visibility = Visibility.Visible;
-            CheckForUpdates();
+            MeRequest();
 
         }
         public class UserLogin
@@ -459,6 +473,8 @@ namespace GameLauncher
                         access_token = userobject.access_token;
                         Status = LauncherStatus.pendingLink;
                         MeRequest();
+                        pingGameServer();
+                        pingText.Visibility = Visibility.Visible;
                     }
 
                 }
@@ -940,6 +956,44 @@ namespace GameLauncher
                 MessageBox.Show(objEx.ToString());
             }
         }
+
+
+
+
+        public async void pingGameServer()
+        {
+            while (true)
+            {
+                try
+                {
+                    Ping ping = new Ping();
+                    PingReply reply = await ping.SendPingAsync(gameserverIp);
+                    
+                    if (reply != null)
+                    {
+                        // Display the result.
+
+                        pingText.Text = "Ping: " + reply.RoundtripTime.ToString();
+                        if (reply.RoundtripTime < 50)
+                        {
+                            pingText.Foreground = new SolidColorBrush(Colors.YellowGreen);
+                        }
+                        else if (reply.RoundtripTime < 100)
+                        {
+                            pingText.Foreground = new SolidColorBrush(Colors.Yellow);
+                        }                
+                        else
+                        {
+                            pingText.Foreground = new SolidColorBrush(Colors.Red);
+                        }
+                            }
+                    await Task.Delay(1000);
+                }
+                catch {
+                    MessageBox.Show((string)Application.Current.FindResource("CannotConnectGameServer"));
+                }
+            }
+            }
     }
 
 

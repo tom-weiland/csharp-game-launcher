@@ -268,10 +268,22 @@
                          PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
             </Grid>
+
         </GroupBox>
 
 
-
+        <TextBlock x:Name="pingText"
+                         
+                   
+                         Foreground="#161376"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         FontSize="15"
+                       Visibility="Hidden"
+                         Margin="10,10,10,10"
+                         Text="Ping:"
+                         TextWrapping="NoWrap" Width="220" 
+                         PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
     </Grid>
 </Window>

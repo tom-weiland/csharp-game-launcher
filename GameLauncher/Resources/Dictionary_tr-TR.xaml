@@ -46,6 +46,7 @@
     <System:String x:Key="meetingCreateNewChange">Toplantı başlığı ekleyin!</System:String>
     <System:String x:Key="OutlookBody">CereMeet Daveti:</System:String>
     <System:String x:Key="OutlookBody2">Ceremeet Toplantısına Katılın:</System:String>
+    <System:String x:Key="CannotConnectGameServer">Oyun sunucusuna bağlanılamıyor.</System:String>
 
 
 
