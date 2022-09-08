@@ -35,6 +35,7 @@
     <System:String x:Key="GreetingMembership2">versiyonuna sahipsiniz.</System:String>
     <System:String x:Key="GreetingMembershipFree">8 dakikaya kadar toplantı yapmanıza izinverecek odalar oluşturabilirsiniz.</System:String>
     <System:String x:Key="GreetingMembershipPremium">Sınırsız süreli toplantılar oluşturabilirsiniz..</System:String>
+    <System:String x:Key="GreetingMembershipEnterprise">kurumsal</System:String>
     <System:String x:Key="GreetingInstructions">Bir toplantiya katılmak için sağ panele size sağlanan linki yapıştırın. Yeni bir toplantı yaratmak için ortadaki paneli kullanın.</System:String>
     <System:String x:Key="UserVerifyEmail">Hesabınız başarıyla oluşturuldu ve bir doğrulama e-postası tarafınıza iletildi. Uygulamaya giriş yapmadan önce litfen e-posta adresinizi doğrulayın.</System:String>
     <System:String x:Key="PasswordMatchError">Parolalar eşleşmiyor!</System:String>
@@ -46,7 +47,7 @@
     <System:String x:Key="meetingCreateNewChange">Toplantı başlığı ekleyin!</System:String>
     <System:String x:Key="OutlookBody">CereMeet Daveti:</System:String>
     <System:String x:Key="OutlookBody2">Ceremeet Toplantısına Katılın:</System:String>
-    <System:String x:Key="CannotConnectGameServer">Oyun sunucusuna bağlanılamıyor.</System:String>
+    <System:String x:Key="CannotConnectGameServer">Oyun sunucusuna bağlanılamıyor. Lütfen internet bağlantınızı kontrol edin.</System:String>
 
 
 

@@ -35,6 +35,7 @@
     <System:String x:Key="GreetingMembership2">version of the CereMeet.</System:String>
     <System:String x:Key="GreetingMembershipFree">You can create and host meetings up to 8 minutes.</System:String>
     <System:String x:Key="GreetingMembershipPremium">You can create and host meetings without time limit.</System:String>
+    <System:String x:Key="GreetingMembershipEnterprise">enterprise</System:String>
     <System:String x:Key="GreetingInstructions">You may attend any meeting by paseting the provided meeting link to the panel on the right. If you want to create a meeting you can do so on the center panel.</System:String>
     <System:String x:Key="UserVerifyEmail">Your accound is sucessfully created and a verification e-mail has been send. Please verify your e-mail before your first login.</System:String>
     <System:String x:Key="PasswordMatchError">Passwords deosnt match!</System:String>
@@ -46,7 +47,7 @@
     <System:String x:Key="meetingCreateNewChange">Please name your meeting title</System:String>
     <System:String x:Key="OutlookBody">CereMeet Meeting Request:</System:String>
     <System:String x:Key="OutlookBody2">Join the CereMeet Meeting:</System:String>
-    <System:String x:Key="CannotConnectGameServer">Unable to connect to the game server.</System:String>
+    <System:String x:Key="CannotConnectGameServer">Unable to connect to the game server. Please check your connection.</System:String>
 
 
 

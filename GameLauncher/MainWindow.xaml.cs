@@ -57,11 +57,15 @@ namespace GameLauncher
         private string access_token = " ";
         private string UserName = " ";
         private string UserMembership = " ";
+        private string UserCompanyMembership;
         private string UserEmail = " ";
+        private string UserDomain;
         private string meetingid = " ";
         private string meetinglink = " ";
-        private string gameserverIp = "20.113.166.57";
+        private string gameserverIp = "gameserver.ceremeet.com";
         private bool meetingid_invalid;
+        private string gameEmail;
+        private string gamePassword;
 
 
 
@@ -71,6 +75,7 @@ namespace GameLauncher
         private string ApiAddress = "https://api.ceremeet.com";
         private string LoginRoot = "/api/auth/login";
         private string RegisterRootad = "/api/auth/register";
+        private string CompanyRoot = "/api/companies/membership/";
         private string MeRoot = "/api/users/me";
         private string MeetingRoot = "/api/meetings";
         private string MeetingLinkPreferals = "ceremeet://ceremeet:com";
@@ -107,6 +112,7 @@ namespace GameLauncher
                         }
                         MeetingGroup.Visibility = Visibility.Hidden;
                         NewMeetingGroup.Visibility = Visibility.Hidden;
+                        
 
                         break;
                     case LauncherStatus.pendingLink:
@@ -115,6 +121,7 @@ namespace GameLauncher
                         NewMeetingGroup.Visibility = Visibility.Visible;
                         UserGroup.Visibility = Visibility.Visible;
                         LoginButton.IsEnabled = true;
+                        MeetingLink.IsEnabled = true;
                         PlayButton.Content = (string)Application.Current.FindResource("pendingLink");
 
                         if (DownloadProgress != null)
@@ -146,10 +153,12 @@ namespace GameLauncher
                         TrButton.IsEnabled = false;
                         LoginButton.IsEnabled = false;
                         EngButton.IsEnabled = false;
+                        LoginGroup.Visibility = Visibility.Hidden;
                         break;
                     case LauncherStatus.downloadingUpdate:
                         PlayButton.Content = (string)Application.Current.FindResource("downloadingUpdate");
                         TrButton.IsEnabled = false;
+                        LoginGroup.Visibility = Visibility.Hidden;
                         LoginButton.IsEnabled = false;
                         EngButton.IsEnabled = false;
                         break;
@@ -163,6 +172,7 @@ namespace GameLauncher
         {
             defaultLocalization = CultureInfo.InstalledUICulture.ToString();
             SwitchLanguage(defaultLocalization);
+            LocalizationInfo = defaultLocalization;
             args = Environment.GetCommandLineArgs();
             InitializeComponent();
             appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -242,7 +252,7 @@ namespace GameLauncher
                 catch (Exception ex)
                 {
                     Status = LauncherStatus.failed;
-                    MessageBox.Show($"Oyun dosyaları alınamadı: {ex}");
+                    MessageBox.Show((string)Application.Current.FindResource("CannotConnectGameServer"));
                 }
             }
             else
@@ -350,7 +360,7 @@ namespace GameLauncher
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.Arguments = launchParameter + " " + LocalizationInfo + " " + access_token;
+                startInfo.Arguments = launchParameter + " " + LocalizationInfo + " " + gameEmail + " " + gamePassword;
                 startInfo.WorkingDirectory = Path.Combine(gamePath, "Ceremeet");
                 if (meetingid_invalid == false)
                 {
@@ -427,7 +437,10 @@ namespace GameLauncher
             LocalizationInfo = "tr-TR";
             TrButton.Visibility = Visibility.Hidden;
             EngButton.Visibility = Visibility.Visible;
-            MeRequest();
+            if (Status != LauncherStatus.pendingLogin)
+            {
+                MeRequest();
+            }
 
         }
 
@@ -437,7 +450,10 @@ namespace GameLauncher
             LocalizationInfo = "eng-US";
             EngButton.Visibility = Visibility.Hidden;
             TrButton.Visibility = Visibility.Visible;
-            MeRequest();
+            if (Status != LauncherStatus.pendingLogin)
+            {
+                MeRequest();
+            }
 
         }
         public class UserLogin
@@ -452,8 +468,8 @@ namespace GameLauncher
             httpRequest.ContentType = "application/json";
             httpRequest.Accept = "application/json";
             httpRequest.Method = "POST";
-            //var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
-            var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
+            var json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
+            //var json = "{\"email\":\"alp@cerebrumtechnologies.com\",\"password\":\"password1222\"}";
             using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
                
@@ -497,6 +513,7 @@ namespace GameLauncher
             public Data data { get; set; }
         }
 
+
         public class User
         {
             public string id { get; set; }
@@ -508,6 +525,8 @@ namespace GameLauncher
             public string photo { get; set; }
             public string membership { get; set; }
             public string nickname { get; set; }
+            public string domain { get; set; }
+
         }
         public void MeRequest()
         {
@@ -516,7 +535,6 @@ namespace GameLauncher
             httpRequest.Method = "GET";
             var BearerToken = "Bearer " + access_token;
             httpRequest.Headers["Authorization"] = BearerToken;
-
             var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
@@ -526,11 +544,12 @@ namespace GameLauncher
                 UserName = MeObj.data.user.name;
                 UserEmail = MeObj.data.user.email;
                 UserMembership = MeObj.data.user.membership;
-
+                UserDomain = MeObj.data.user.domain;
+                
                 if (UserMembership == "free")
                 {
                     UserInfo.Text = (string)Application.Current.FindResource("Greeting") + " " + UserName + ", \n" +
-                    (string)Application.Current.FindResource("GreetingMembership") + " " + UserMembership + (string)Application.Current.FindResource("GreetingMembership2") + "\n" +
+                    (string)Application.Current.FindResource("GreetingMembership") + " " + UserMembership + " " + (string)Application.Current.FindResource("GreetingMembership2") + "\n" +
                     (string)Application.Current.FindResource("GreetingMembershipFree") + " " + (string)Application.Current.FindResource("GreetingInstructions");
                 }
                 else
@@ -540,9 +559,61 @@ namespace GameLauncher
 (string)Application.Current.FindResource("GreetingMembershipPremium") + " \n \n" + (string)Application.Current.FindResource("GreetingInstructions");
                 }
 
+                CompanyRequest(UserDomain);
+
 
             }
         }
+
+        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+        public class ComData
+        {
+            public string membership { get; set; }
+        }
+
+        public class ComRoot
+        {
+            public string status { get; set; }
+            public ComData data { get; set; }
+        }
+
+
+        public void CompanyRequest(string domain )
+        {
+            var httpRequest = (HttpWebRequest)WebRequest.Create(ApiAddress + CompanyRoot + domain);
+            httpRequest.Accept = "application/json";
+            httpRequest.Method = "GET";
+            var BearerToken = "Bearer " + access_token;
+            httpRequest.Headers["Authorization"] = BearerToken;
+            try
+            {
+                var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+
+                    ComRoot CompanyObj = JsonSerializer.Deserialize<ComRoot>(result);
+
+                    UserCompanyMembership = CompanyObj.data.membership;
+
+
+                    if (UserCompanyMembership == "premium")
+                    {
+                        UserInfo.Text = (string)Application.Current.FindResource("Greeting") + " " + UserName + ", \n" +
+    (string)Application.Current.FindResource("GreetingMembership") + " " + UserCompanyMembership + " " + (string)Application.Current.FindResource("GreetingMembershipEnterprise") + " " + (string)Application.Current.FindResource("GreetingMembership2") + " " +
+    (string)Application.Current.FindResource("GreetingMembershipPremium") + " \n \n" + (string)Application.Current.FindResource("GreetingInstructions");
+                    }
+
+                }
+
+
+            }
+            catch
+            {
+
+            }
+        }
+
         public class NewmData
         {
             public NewmMeeting meeting { get; set; }
@@ -593,8 +664,8 @@ namespace GameLauncher
 
                 streamWriter.Write(json);
             }
-            //try
-            //{
+            try
+            {
                 var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
@@ -611,11 +682,11 @@ namespace GameLauncher
                 }
 
 
-            //}
-           // catch (Exception ex)
-           // {
-           //     MessageBox.Show("Wrong Password");
-           // }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("check connection");
+            }
         }
         public class mData
         {
@@ -780,7 +851,10 @@ namespace GameLauncher
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             LoginRequest(email.Text, password.Password);
-        }
+            gamePassword = password.Password;
+            gameEmail = email.Text;
+
+    }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
@@ -974,14 +1048,19 @@ namespace GameLauncher
                         // Display the result.
 
                         pingText.Text = "Ping: " + reply.RoundtripTime.ToString();
-                        if (reply.RoundtripTime < 50)
+                        if (reply.RoundtripTime == 0) {
+                            pingText.Foreground = new SolidColorBrush(Colors.Red);
+                            pingText.Text = (string)Application.Current.FindResource("CannotConnectGameServer");
+                            MessageBox.Show((string)Application.Current.FindResource("CannotConnectGameServer"));
+                        }
+                        else if (reply.RoundtripTime < 50)
                         {
                             pingText.Foreground = new SolidColorBrush(Colors.YellowGreen);
                         }
                         else if (reply.RoundtripTime < 100)
                         {
                             pingText.Foreground = new SolidColorBrush(Colors.Yellow);
-                        }                
+                        }
                         else
                         {
                             pingText.Foreground = new SolidColorBrush(Colors.Red);
