@@ -31,7 +31,8 @@ namespace GameLauncher
         pendingLink,
         failed,
         downloadingGame,
-        downloadingUpdate
+        downloadingUpdate,
+        gameRunning
     }
 
     /// <summary>
@@ -90,6 +91,21 @@ namespace GameLauncher
                 _status = value;
                 switch (_status)
                 {
+                    case LauncherStatus.gameRunning:
+                        if (DownloadProgress != null)
+                        {
+                            DownloadProgress.Visibility = Visibility.Collapsed;
+                        }
+                        MeetingGroup.Visibility = Visibility.Visible;
+                        LoginButton.IsEnabled = true;
+                        PlayButton.IsEnabled = false;
+                        PlayButton.Content = (string)Application.Current.FindResource("GameRunning");
+                        NewMeetingGroup.Visibility = Visibility.Visible;
+                        NewMeetingButton.IsEnabled = false;
+                        LogoutButton.IsEnabled = false;
+                        MeetingLink.IsEnabled = false;
+                        CheckGamePoresses();
+                        break;
                     case LauncherStatus.ready:
                         PlayButton.Content = (string)Application.Current.FindResource("start");
                         if (DownloadProgress != null)
@@ -98,6 +114,10 @@ namespace GameLauncher
                         }
                         MeetingGroup.Visibility = Visibility.Visible;
                         LoginButton.IsEnabled = true;
+                        NewMeetingButton.IsEnabled = true;
+                        LogoutButton.IsEnabled = true;
+                        MeetingLink.IsEnabled = true;
+                        PlayButton.IsEnabled = true;
 
                         NewMeetingGroup.Visibility = Visibility.Visible;
                         break;
@@ -367,7 +387,8 @@ namespace GameLauncher
                     Process.Start(startInfo);
                     PlayButton.IsEnabled = false;
                     Thread.Sleep(10000);
-                    PlayButton.IsEnabled = true;
+                    Status = LauncherStatus.gameRunning;
+
                 }
             }
             else if (Status == LauncherStatus.failed)
@@ -1006,12 +1027,10 @@ namespace GameLauncher
 
                 Outlook.Application outlookApp = new Outlook.Application();
                 Outlook._AppointmentItem oAppointmentItem = (Outlook.AppointmentItem)outlookApp.CreateItem(Outlook.OlItemType.olAppointmentItem);
-                Outlook.Inspector oInspector = oAppointmentItem.GetInspector;
+                Outlook.Inspector oInspector =  oAppointmentItem.GetInspector;
                 // Thread.Sleep(10000);
 
                 // Recipient
-
-
 
 
 
@@ -1073,6 +1092,36 @@ namespace GameLauncher
                 }
             }
             }
+
+        public async void CheckGamePoresses()
+        {
+            while (true)
+            {
+                try
+                {
+                    Process[] processes =  Process.GetProcessesByName("Ceremeet");
+
+                    if (processes.Length > 0)
+
+                    {
+
+
+                        await Task.Delay(3000);
+
+                    }
+                    else
+                    {
+                        Status = LauncherStatus.ready;
+                        break;
+                    }
+                }
+
+                catch
+                {
+                    MessageBox.Show((string)Application.Current.FindResource("CannotConnectGameServer"));
+                }
+            }
+        }
     }
 
 

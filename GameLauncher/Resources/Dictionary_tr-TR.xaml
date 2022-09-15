@@ -48,6 +48,8 @@
     <System:String x:Key="OutlookBody">CereMeet Daveti:</System:String>
     <System:String x:Key="OutlookBody2">Ceremeet Toplantısına Katılın:</System:String>
     <System:String x:Key="CannotConnectGameServer">Oyun sunucusuna bağlanılamıyor. Lütfen internet bağlantınızı kontrol edin.</System:String>
+    <System:String x:Key="GameRunning">Çalışıyor</System:String>
+
 
 
 
