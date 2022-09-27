@@ -28,7 +28,8 @@
     <System:String x:Key="meetingJoin">Toplantıya Katıl</System:String>
     <System:String x:Key="meetingCreateNewTitle">Toplantı Başlığı Girin</System:String>
     <System:String x:Key="meetingCreateNewTitleLabel">Yeni Toplantı Başlığı:</System:String>
-    <System:String x:Key="register">Kayıt ol</System:String>
+    <System:String x:Key="register">Kaydol</System:String>
+    <System:String x:Key="forgot">Şifremi Unuttum</System:String>
     <System:String x:Key="meetingLinkWrong">Bu linke ait bir toplantı bulunamadı.</System:String>
     <System:String x:Key="Greeting">Merhaba</System:String>
     <System:String x:Key="GreetingMembership">CereMeet'in</System:String>
@@ -36,7 +37,7 @@
     <System:String x:Key="GreetingMembershipFree">8 dakikaya kadar toplantı yapmanıza izinverecek odalar oluşturabilirsiniz.</System:String>
     <System:String x:Key="GreetingMembershipPremium">Sınırsız süreli toplantılar oluşturabilirsiniz..</System:String>
     <System:String x:Key="GreetingMembershipEnterprise">kurumsal</System:String>
-    <System:String x:Key="GreetingInstructions">Bir toplantiya katılmak için sağ panele size sağlanan linki yapıştırın. Yeni bir toplantı yaratmak için ortadaki paneli kullanın.</System:String>
+    <System:String x:Key="GreetingInstructions">Bir toplantıya katılmak için sağ panele size sağlanan linki yapıştırın. Yeni bir toplantı yaratmak için ortadaki paneli kullanın.</System:String>
     <System:String x:Key="UserVerifyEmail">Hesabınız başarıyla oluşturuldu ve bir doğrulama e-postası tarafınıza iletildi. Uygulamaya giriş yapmadan önce litfen e-posta adresinizi doğrulayın.</System:String>
     <System:String x:Key="PasswordMatchError">Parolalar eşleşmiyor!</System:String>
     <System:String x:Key="PasswordWeak">Parola en az 8, en fazla 32 karakter olmalı!</System:String>

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Bibliography;
 using System.Drawing;
 using System.Windows.Media;
+using System.Security.Policy;
 
 namespace GameLauncher
 {
@@ -1121,6 +1122,11 @@ namespace GameLauncher
                     MessageBox.Show((string)Application.Current.FindResource("CannotConnectGameServer"));
                 }
             }
+        }
+
+        private void ForgotButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://ui.api.ceremeet.com/forgotpassword") { UseShellExecute = true });
         }
     }
 

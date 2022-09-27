@@ -63,8 +63,8 @@
         <Button x:Name="TrButton" IsEnabled="True" Background="#01d5bc"
                          Foreground="#161376" BorderThickness="0"   Content="TR" HorizontalAlignment="Center" Visibility="Hidden" Margin="1006,30,0,0" VerticalAlignment="Top" Click="tr_Click"/>
 
-        <GroupBox x:Name="LoginGroup" Width="300" Height="249" VerticalAlignment="Center" Background="#D6ECFF" BorderThickness="0"  HorizontalAlignment="Left" Margin="385,0,0,0" Foreground="#1B3B56" d:IsHidden="True" >
-            <Grid Height="207">
+        <GroupBox x:Name="LoginGroup" Width="300" Height="300" VerticalAlignment="Center" Background="#D6ECFF" BorderThickness="0"  HorizontalAlignment="Left" Margin="385,0,0,0" Foreground="#1B3B56" d:IsHidden="True" >
+            <Grid Height="250">
                 <TextBox x:Name="email"
                          
                          Foreground="#161376"
@@ -82,21 +82,27 @@
                          Foreground="#161376"
                          BorderThickness="0"
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
+                         VerticalAlignment="Top"
                          FontSize="20"                         
                          Width="240" 
                          MouseDoubleClick="SelectMeeetingText"
-                         GotKeyboardFocus="SelectMeeetingText"
+                         GotKeyboardFocus="SelectMeeetingText" Margin="0,85,0,0"
                          PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" Height="28"/>
 
                 <Button x:Uid="RegisterButton"
                 BorderThickness="0" 
                         
+                x:Name="ForgotButton"
+                Content="{DynamicResource forgot}"           Click="ForgotButton_Click" Height="20" FontSize="15" FontWeight="Bold" MinWidth="40" Foreground="#161376" Background="AliceBlue"
+                VerticalAlignment="Top" HorizontalAlignment="Center"  
+                Padding="0,0,0,0" Margin="0,170,0,0"/>
+                <Button x:Uid="ForgotButton"
+                BorderThickness="0" 
+                        
                 x:Name="RegisterButton"
-                Content="{DynamicResource register}"           Click="RegisterButton_Click" Height="20" FontSize="15" FontWeight="Bold" MinWidth="40" Foreground="#161376"
-                VerticalAlignment="Top" HorizontalAlignment="Center" 
-                Padding="0,0,0,0" Margin="0,138,0,0"/>
-                
+                Content="{DynamicResource register}"           Click="RegisterButton_Click" Height="25" FontSize="15" FontWeight="Bold" MinWidth="40" Foreground="#161376"  Background="AliceBlue"
+                VerticalAlignment="Center" HorizontalAlignment="Center"  
+                Padding="0,0,0,0" Margin="0,50,0,0"/>
 
                 <Button x:Uid="LoginButton"
                 BorderThickness="0" 
@@ -104,7 +110,7 @@
                          IsDefault="True"
                 Content="{DynamicResource userLogin}"
                 Click="LoginButton_Click" Height="30" FontSize="15" FontWeight="Bold" Foreground="#161376"
-                Margin="0,0,0,10"
+                Margin="0,80,0,10"
                 VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="150"
                 Background="#01d5bc" Padding="0,0,0,0"/>
                 <Label Content="{DynamicResource userEmail}" HorizontalAlignment="Left" Height="34" Margin="28,0,0,0" VerticalAlignment="Top" Foreground="#161376" Width="138"/>
