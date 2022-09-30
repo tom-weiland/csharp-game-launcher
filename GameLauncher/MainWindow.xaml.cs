@@ -22,6 +22,8 @@ using DocumentFormat.OpenXml.Bibliography;
 using System.Drawing;
 using System.Windows.Media;
 using System.Security.Policy;
+using CeremeetGameLauncher.Properties;
+using DocumentFormat.OpenXml.CustomProperties;
 
 namespace GameLauncher
 {
@@ -124,6 +126,8 @@ namespace GameLauncher
                         break;
                     case LauncherStatus.pendingLogin:
                         PlayButton.Content = (string)Application.Current.FindResource("pendingLogin");
+                        email.Text = Settings.Default.email;
+                        password.Password = Settings.Default.password;
                         LoginGroup.Visibility = Visibility.Visible;
                         UserGroup.Visibility = Visibility.Collapsed;
                         LoginButton.IsEnabled = true;
@@ -875,6 +879,9 @@ namespace GameLauncher
             LoginRequest(email.Text, password.Password);
             gamePassword = password.Password;
             gameEmail = email.Text;
+            Settings.Default.email = email.Text;
+            Settings.Default.password = password.Password;
+            Settings.Default.Save();
 
     }
 
@@ -882,6 +889,11 @@ namespace GameLauncher
         {
             
             Status = LauncherStatus.pendingLogin;
+            Settings.Default.email = null;
+            Settings.Default.password = null;
+            Settings.Default.email = email.Text;
+            Settings.Default.password = password.Password;
+            Settings.Default.Save();
         }
 
         private void GetMeetingButton_Click(object sender, RoutedEventArgs e)
