@@ -21,10 +21,10 @@ namespace GameLauncher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string rootPath;
-        private string versionFile;
-        private string gameZip;
-        private string gameExe;
+        private readonly string rootPath;
+        private readonly string versionFile;
+        private readonly string gameZip;
+        private readonly string gameExe;
 
         private LauncherStatus _status;
         internal LauncherStatus Status
@@ -67,13 +67,13 @@ namespace GameLauncher
         {
             if (File.Exists(versionFile))
             {
-                Version localVersion = new Version(File.ReadAllText(versionFile));
+                Version localVersion = new(File.ReadAllText(versionFile));
                 VersionText.Text = localVersion.ToString();
 
                 try
                 {
-                    WebClient webClient = new WebClient();
-                    Version onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
+                    WebClient webClient = new();
+                    Version onlineVersion = new(webClient.DownloadString("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
 
                     if (onlineVersion.IsDifferentThan(localVersion))
                     {
@@ -100,7 +100,7 @@ namespace GameLauncher
         {
             try
             {
-                WebClient webClient = new WebClient();
+                WebClient webClient = new();
                 if (_isUpdate)
                 {
                     Status = LauncherStatus.downloadingUpdate;
@@ -150,8 +150,10 @@ namespace GameLauncher
         {
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.WorkingDirectory = Path.Combine(rootPath, "RENVIRONS_BUILDFILES");
+                ProcessStartInfo startInfo = new(gameExe)
+                {
+                    WorkingDirectory = Path.Combine(rootPath, "RENVIRONS_BUILDFILES")
+                };
                 Process.Start(startInfo);
 
                 Close();
@@ -165,11 +167,11 @@ namespace GameLauncher
 
     struct Version
     {
-        internal static Version zero = new Version(0, 0, 0);
+        internal static Version zero = new(0, 0, 0);
 
-        private short major;
-        private short minor;
-        private short subMinor;
+        private readonly short major;
+        private readonly short minor;
+        private readonly short subMinor;
 
         internal Version(short _major, short _minor, short _subMinor)
         {
