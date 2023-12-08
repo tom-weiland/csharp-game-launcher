@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Net.Http;
 using System.Windows;
 
 namespace GameLauncher
@@ -63,7 +64,7 @@ namespace GameLauncher
             gameExe = Path.Combine(rootPath, "RENVIRONS_BUILDFILES", "Renvirons Project.exe");
         }
 
-        private void CheckForUpdates()
+        private async void CheckForUpdates()
         {
             if (File.Exists(versionFile))
             {
@@ -72,8 +73,8 @@ namespace GameLauncher
 
                 try
                 {
-                    WebClient webClient = new();
-                    Version onlineVersion = new(webClient.DownloadString("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
+                    using HttpClient httpClient = new();
+                    Version onlineVersion = new(await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
 
                     if (onlineVersion.IsDifferentThan(localVersion))
                     {
@@ -96,11 +97,11 @@ namespace GameLauncher
             }
         }
 
-        private void InstallGameFiles(bool _isUpdate, Version _onlineVersion)
+        private async void InstallGameFiles(bool _isUpdate, Version zero)
         {
             try
             {
-                WebClient webClient = new();
+                using HttpClient httpClient = new();
                 if (_isUpdate)
                 {
                     Status = LauncherStatus.downloadingUpdate;
@@ -108,11 +109,19 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    _onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
+                    Version onlineVersion = new(await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
                 }
 
-                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadGameCompletedCallback);
-                webClient.DownloadFileAsync(new Uri("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1"), gameZip, _onlineVersion);
+                using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1"))
+                {
+                    response.EnsureSuccessStatusCode();
+
+                    using Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                                  stream = new FileStream(gameZip, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                    await contentStream.CopyToAsync(stream);
+                }
+
+                DownloadGameCompletedCallback(null, null);
             }
             catch (Exception ex)
             {
