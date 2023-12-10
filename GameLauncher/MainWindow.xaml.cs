@@ -26,7 +26,7 @@ namespace GameLauncher
         private readonly string gameExe;
 
         private LauncherStatus _status;
-        private IProgress<int> _downloadProgress;
+        private readonly IProgress<int> _downloadProgress;
 
         internal LauncherStatus Status
         {
@@ -140,9 +140,9 @@ namespace GameLauncher
                     long receivedBytes = 0;
                     byte[] buffer = new byte[8192];
                     int bytesRead;
-                    while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    while ((bytesRead = await contentStream.ReadAsync(buffer)) > 0)
                     {
-                        await stream.WriteAsync(buffer, 0, bytesRead);
+                        await stream.WriteAsync(buffer.AsMemory(0, bytesRead));
                         receivedBytes += bytesRead;
                         if (totalBytes > 0)
                         {
