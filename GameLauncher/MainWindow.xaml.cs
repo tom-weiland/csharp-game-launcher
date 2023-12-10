@@ -106,7 +106,21 @@ namespace GameLauncher
             }
             else
             {
-                InstallGameFiles(false, Version.zero);
+                try
+                {
+                    using HttpClient httpClient = new();
+
+                    // Download the version file using GetStringAsync
+                    string versionString = await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1");
+                    Version onlineVersion = new(versionString);
+
+                    InstallGameFiles(false, onlineVersion);
+                }
+                catch (Exception ex)
+                {
+                    Status = LauncherStatus.failed;
+                    MessageBox.Show($"Error checking for game updates: {ex}");
+                }
             }
         }
 
@@ -122,9 +136,10 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    // Set the version for the initial installation
-                    File.WriteAllText(versionFile, onlineVersion.ToString());
                 }
+
+                // Set the version for the initial installation
+                File.WriteAllText(versionFile, onlineVersion.ToString());
 
                 using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1", HttpCompletionOption.ResponseHeadersRead))
                 {
