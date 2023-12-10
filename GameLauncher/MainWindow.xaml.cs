@@ -106,7 +106,7 @@ namespace GameLauncher
             }
         }
 
-        private async void InstallGameFiles(bool _isUpdate, Version zero)
+        private async void InstallGameFiles(bool _isUpdate, Version onlineVersion)
         {
             try
             {
@@ -118,7 +118,6 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
-                    Version onlineVersion = new(await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
                 }
 
                 using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1", HttpCompletionOption.ResponseHeadersRead))
@@ -143,7 +142,8 @@ namespace GameLauncher
                     }
                 }
 
-                DownloadGameCompletedCallback(null, null);
+                // Pass the onlineVersion to the callback
+                DownloadGameCompletedCallback(null, new AsyncCompletedEventArgs(null, false, onlineVersion));
             }
             catch (Exception ex)
             {
@@ -156,14 +156,23 @@ namespace GameLauncher
         {
             try
             {
-                string onlineVersion = ((Version)e.UserState).ToString();
-                ZipFile.ExtractToDirectory(gameZip, rootPath, true);
-                File.Delete(gameZip);
+                if (e.UserState != null)
+                {
+                    string onlineVersion = ((Version)e.UserState).ToString();
+                    ZipFile.ExtractToDirectory(gameZip, rootPath, true);
+                    File.Delete(gameZip);
 
-                File.WriteAllText(versionFile, onlineVersion);
+                    File.WriteAllText(versionFile, onlineVersion);
 
-                VersionText.Text = onlineVersion;
-                Status = LauncherStatus.ready;
+                    VersionText.Text = onlineVersion;
+                    Status = LauncherStatus.ready;
+                }
+                else
+                {
+                    // Handle the case when e.UserState is null
+                    Status = LauncherStatus.failed;
+                    MessageBox.Show("Error finishing download: UserState is null.");
+                }
             }
             catch (Exception ex)
             {
@@ -194,64 +203,64 @@ namespace GameLauncher
                 CheckForUpdates();
             }
         }
-    }
 
-    struct Version
-    {
-        internal static Version zero = new(0, 0, 0);
-
-        private readonly short major;
-        private readonly short minor;
-        private readonly short subMinor;
-
-        internal Version(short _major, short _minor, short _subMinor)
+        struct Version
         {
-            major = _major;
-            minor = _minor;
-            subMinor = _subMinor;
-        }
-        internal Version(string _version)
-        {
-            string[] versionStrings = _version.Split('.');
-            if (versionStrings.Length != 3)
+            internal static Version zero = new(0, 0, 0);
+
+            private readonly short major;
+            private readonly short minor;
+            private readonly short subMinor;
+
+            internal Version(short _major, short _minor, short _subMinor)
             {
-                major = 0;
-                minor = 0;
-                subMinor = 0;
-                return;
+                major = _major;
+                minor = _minor;
+                subMinor = _subMinor;
+            }
+            internal Version(string _version)
+            {
+                string[] versionStrings = _version.Split('.');
+                if (versionStrings.Length != 3)
+                {
+                    major = 0;
+                    minor = 0;
+                    subMinor = 0;
+                    return;
+                }
+
+                major = short.Parse(versionStrings[0]);
+                minor = short.Parse(versionStrings[1]);
+                subMinor = short.Parse(versionStrings[2]);
             }
 
-            major = short.Parse(versionStrings[0]);
-            minor = short.Parse(versionStrings[1]);
-            subMinor = short.Parse(versionStrings[2]);
-        }
-
-        internal bool IsDifferentThan(Version _otherVersion)
-        {
-            if (major != _otherVersion.major)
+            internal bool IsDifferentThan(Version _otherVersion)
             {
-                return true;
-            }
-            else
-            {
-                if (minor != _otherVersion.minor)
+                if (major != _otherVersion.major)
                 {
                     return true;
                 }
                 else
                 {
-                    if (subMinor != _otherVersion.subMinor)
+                    if (minor != _otherVersion.minor)
                     {
                         return true;
                     }
+                    else
+                    {
+                        if (subMinor != _otherVersion.subMinor)
+                        {
+                            return true;
+                        }
+                    }
                 }
+                return false;
             }
-            return false;
-        }
 
-        public override string ToString()
-        {
-            return $"{major}.{minor}.{subMinor}";
+            public override string ToString()
+            {
+                return $"{major}.{minor}.{subMinor}";
+            }
         }
     }
 }
