@@ -18,9 +18,6 @@ namespace GameLauncher
         downloadingUpdate
     }
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly string rootPath;
@@ -68,7 +65,6 @@ namespace GameLauncher
 
             _downloadProgress = new Progress<int>(percentage =>
             {
-                // Update UI with the download progress
                 ProgressBar.Value = percentage;
                 StatusText.Text = $"Downloading... {percentage}%";
             });
@@ -84,8 +80,6 @@ namespace GameLauncher
                 try
                 {
                     using HttpClient httpClient = new();
-
-                    // Download the version file using GetStringAsync
                     string versionString = await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1");
                     Version onlineVersion = new(versionString);
 
@@ -109,8 +103,6 @@ namespace GameLauncher
                 try
                 {
                     using HttpClient httpClient = new();
-
-                    // Download the version file using GetStringAsync
                     string versionString = await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1");
                     Version onlineVersion = new(versionString);
 
@@ -160,7 +152,6 @@ namespace GameLauncher
                     }
                 }
 
-                // Pass the onlineVersion to the callback
                 DownloadGameCompletedCallback(null, new AsyncCompletedEventArgs(null, false, onlineVersion));
             }
             catch (Exception ex)
@@ -179,8 +170,6 @@ namespace GameLauncher
                     string onlineVersion = ((Version)e.UserState).ToString();
                     ZipFile.ExtractToDirectory(gameZip, rootPath, true);
                     File.Delete(gameZip);
-
-                    // Set the version for the initial installation
                     File.WriteAllText(versionFile, onlineVersion);
 
                     VersionText.Text = onlineVersion;
@@ -188,7 +177,6 @@ namespace GameLauncher
                 }
                 else
                 {
-                    // Handle the case when e.UserState is null
                     Status = LauncherStatus.failed;
                     MessageBox.Show("Error finishing download: UserState is null.");
                 }
