@@ -138,9 +138,6 @@ namespace GameLauncher
                     Status = LauncherStatus.downloadingGame;
                 }
 
-                // Set the version for the initial installation
-                File.WriteAllText(versionFile, onlineVersion.ToString());
-
                 using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1", HttpCompletionOption.ResponseHeadersRead))
                 {
                     response.EnsureSuccessStatusCode();
@@ -183,6 +180,7 @@ namespace GameLauncher
                     ZipFile.ExtractToDirectory(gameZip, rootPath, true);
                     File.Delete(gameZip);
 
+                    // Set the version for the initial installation
                     File.WriteAllText(versionFile, onlineVersion);
 
                     VersionText.Text = onlineVersion;
