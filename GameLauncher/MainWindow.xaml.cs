@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace GameLauncher
@@ -83,7 +84,10 @@ namespace GameLauncher
                 try
                 {
                     using HttpClient httpClient = new();
-                    Version onlineVersion = new(await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
+
+                    // Download the version file using GetStringAsync
+                    string versionString = await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1");
+                    Version onlineVersion = new(versionString);
 
                     if (onlineVersion.IsDifferentThan(localVersion))
                     {
@@ -118,6 +122,8 @@ namespace GameLauncher
                 else
                 {
                     Status = LauncherStatus.downloadingGame;
+                    // Set the version for the initial installation
+                    File.WriteAllText(versionFile, onlineVersion.ToString());
                 }
 
                 using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1", HttpCompletionOption.ResponseHeadersRead))
