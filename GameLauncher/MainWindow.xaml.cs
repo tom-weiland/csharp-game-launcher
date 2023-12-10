@@ -28,6 +28,8 @@ namespace GameLauncher
         private readonly string gameExe;
 
         private LauncherStatus _status;
+        private IProgress<int> _downloadProgress;
+
         internal LauncherStatus Status
         {
             get => _status;
@@ -62,6 +64,13 @@ namespace GameLauncher
             versionFile = Path.Combine(rootPath, "Version.txt");
             gameZip = Path.Combine(rootPath, "Renvirons Project.zip");
             gameExe = Path.Combine(rootPath, "RENVIRONS_BUILDFILES", "Renvirons Project.exe");
+
+            _downloadProgress = new Progress<int>(percentage =>
+            {
+                // Update UI with the download progress
+                ProgressBar.Value = percentage;
+                StatusText.Text = $"Downloading... {percentage}%";
+            });
         }
 
         private async void CheckForUpdates()
@@ -112,13 +121,26 @@ namespace GameLauncher
                     Version onlineVersion = new(await httpClient.GetStringAsync("https://www.dropbox.com/s/uowcriov5cod7wt/Version.txt?dl=1"));
                 }
 
-                using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1"))
+                using (HttpResponseMessage response = await httpClient.GetAsync("https://www.dropbox.com/s/4txqq97xuej54dq/Renvirons%20Project.zip?dl=1", HttpCompletionOption.ResponseHeadersRead))
                 {
                     response.EnsureSuccessStatusCode();
 
                     using Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                                  stream = new FileStream(gameZip, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
-                    await contentStream.CopyToAsync(stream);
+                        stream = new FileStream(gameZip, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+                    long totalBytes = response.Content.Headers.ContentLength ?? -1;
+                    long receivedBytes = 0;
+                    byte[] buffer = new byte[8192];
+                    int bytesRead;
+                    while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    {
+                        await stream.WriteAsync(buffer, 0, bytesRead);
+                        receivedBytes += bytesRead;
+                        if (totalBytes > 0)
+                        {
+                            int percentage = (int)((receivedBytes / (double)totalBytes) * 100);
+                            _downloadProgress.Report(percentage);
+                        }
+                    }
                 }
 
                 DownloadGameCompletedCallback(null, null);

@@ -8,17 +8,20 @@
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered"
         Title="Renvirons Project Launcher" Height="580" Width="1080">
-    <Grid>
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="13*"/>
             <ColumnDefinition Width="203*"/>
         </Grid.ColumnDefinitions>
-        <Image Stretch="UniformToFill" Source="images/LauncherBackground.png" Grid.ColumnSpan="2"/>
+        <Image Stretch="UniformToFill" Source="/LauncherBackground.png" Margin="0,0,0,-2" Grid.ColumnSpan="2"/>
         <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0, 0, 5, 0" Grid.Column="1" ClipToBounds="True" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
         </TextBlock>
-        <Button Name="PlayButton" Content="Checking for updates..." Click="PlayButton_Click" Height="43" FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" Margin="10,0,0,10" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="150" Background="#FF4C79B0" Padding="10,1,10,1" Grid.Column="1" Width="363"/>
+        <Button Name="PlayButton" Content="Checking for updates..." Click="PlayButton_Click" Height="66"  FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" Margin="128,0,193,111" VerticalAlignment="Bottom" MinWidth="150" Background="Black" Padding="10,1,10,1" Grid.Column="1" BorderBrush="White" BorderThickness="5,5,5,5" RenderTransformOrigin="0.5,0.5"/>
+        <ProgressBar Name="ProgressBar" Width="200" Height="20" VerticalAlignment="Top" Margin="-68,711,948,0" Grid.ColumnSpan="2"/>
+        <TextBlock Name="StatusText" Text="" VerticalAlignment="Bottom" Background="#FF4C79B0" Margin="429,0,540,53" Grid.Column="1"/>
+
     </Grid>
 </Window>
