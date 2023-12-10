@@ -13,12 +13,14 @@
     <None Remove="images\Icon.ico" />
     <None Remove="images\LauncherBackground.png" />
     <None Remove="LauncherBackground.png" />
+    <None Remove="LauncherBackgroundNEW.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="images\Icon.ico" />
     <Resource Include="images\LauncherBackground.png" />
     <Resource Include="LauncherBackground.png" />
+    <Resource Include="LauncherBackgroundNEW.png" />
   </ItemGroup>
 
 </Project>
