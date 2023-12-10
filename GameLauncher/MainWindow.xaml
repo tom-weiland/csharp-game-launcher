@@ -13,7 +13,7 @@
             <ColumnDefinition Width="13*"/>
             <ColumnDefinition Width="203*"/>
         </Grid.ColumnDefinitions>
-        <Image Stretch="UniformToFill" Source="/LauncherBackground.png" Margin="0,0,0,-2" Grid.ColumnSpan="2"/>
+        <Image Stretch="UniformToFill" Margin="0,0,0,-2" Grid.ColumnSpan="2" Source="/LauncherBackgroundNEW.png"/>
         <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0, 0, 5, 0" Grid.Column="1" ClipToBounds="True" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}">
             <TextBlock.Effect>
                 <DropShadowEffect/>
